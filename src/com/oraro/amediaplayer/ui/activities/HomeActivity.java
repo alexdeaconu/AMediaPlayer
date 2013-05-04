@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.util.LruCache;
 
 import com.oraro.amediaplayer.R;
 import com.oraro.amediaplayer.dataaccess.AudioDataAccess;
@@ -33,7 +34,8 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 	private void constructList() {
 		List<SelectableItem> itemList = new ArrayList<SelectableItem>();
 
-		
+		int cacheSize = 4 * 1024 * 1024; // 4MiB
+		LruCache<String, byte[]> lru = new LruCache<String, byte[]>(4000000);
 		
 		//-----TODO this is only for testing -delete afterwards!!!!
 		AudioDataAccess auda = new AudioDataAccess(this);

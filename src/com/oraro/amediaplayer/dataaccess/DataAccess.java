@@ -25,8 +25,8 @@ public abstract class DataAccess<T extends Item> {
 	private static final String TAG = "DataAccess";
 	
 	protected Context mContext;
-	private String[] mProjection;
-	private Uri mUri;
+	protected String[] mProjection;
+	protected Uri mUri;
 
 	
 	protected DataAccess(Context context, Uri uri, String[] projection) {

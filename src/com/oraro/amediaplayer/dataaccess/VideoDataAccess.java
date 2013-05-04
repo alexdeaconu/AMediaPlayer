@@ -51,13 +51,15 @@ public class VideoDataAccess extends DataAccess<MediaItem> {
 
 	@Override
 	protected MediaItem readValue(Cursor c) {
+		long itemId = c.getLong(c.getColumnIndex(MediaStore.Audio.Media._ID));
 		return new MediaItem(
 				c.getLong(c.getColumnIndex(MediaStore.Video.Media._ID)), 
 				c.getString(c.getColumnIndex(MediaStore.Video.Media.ARTIST)),
 				c.getInt(c.getColumnIndex(MediaStore.Video.Media.BOOKMARK)),
 				c.getInt(c.getColumnIndex(MediaStore.Video.Media.DURATION)),
 				c.getString(c.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME)),
-				c.getString(c.getColumnIndex(MediaStore.Video.Media.TITLE))
+				c.getString(c.getColumnIndex(MediaStore.Video.Media.TITLE)),
+				Uri.parse(mUri + "/" + itemId)
 				);
 	}
 

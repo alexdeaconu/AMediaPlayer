@@ -1,5 +1,7 @@
 package com.oraro.amediaplayer.entities;
 
+import android.net.Uri;
+
 import com.oraro.amediaplayer.ui.list.Item;
 
 /**
@@ -16,6 +18,7 @@ public class MediaItem extends Item {
 	private int duration;
 	private String displayName;
 	private String title;
+	private Uri uri;
 
 	/**
 	 * @param id The unique ID for a row. 
@@ -24,15 +27,17 @@ public class MediaItem extends Item {
 	 * @param duration The duration of the video file, in ms 
 	 * @param displayName The display name of the file 
 	 * @param title The title of the content 
+	 * @param uri the uri which identifies the media e.g. content://media/external/audio/media/999
 	 */
 	public MediaItem(long id, String artist, int bookmark, int duration,
-			String displayName, String title) {
+			String displayName, String title, Uri uri) {
 		super(id);
 		this.artist = artist;
 		this.bookmark = bookmark;
 		this.duration = duration;
 		this.displayName = displayName;
 		this.title = title;
+		this.uri = uri;
 	}
 
 	public String getArtist() {
@@ -53,5 +58,9 @@ public class MediaItem extends Item {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public Uri getUri() {
+		return uri;
 	}
 }
