@@ -3,12 +3,18 @@ package com.oraro.amediaplayer.ui.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.LruCache;
 
 import com.oraro.amediaplayer.R;
 import com.oraro.amediaplayer.dataaccess.AudioDataAccess;
 import com.oraro.amediaplayer.entities.MediaItem;
+import com.oraro.amediaplayer.log.MPLog;
+import com.oraro.amediaplayer.player.AudioPlayer;
+import com.oraro.amediaplayer.player.MediaCacheManager;
 import com.oraro.amediaplayer.ui.list.BaseListActivity;
 import com.oraro.amediaplayer.ui.list.SelectableItem;
 
@@ -34,20 +40,23 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 	private void constructList() {
 		List<SelectableItem> itemList = new ArrayList<SelectableItem>();
 
-		int cacheSize = 4 * 1024 * 1024; // 4MiB
-		LruCache<String, byte[]> lru = new LruCache<String, byte[]>(4000000);
+//		int cacheSize = 4 * 1024 * 1024; // 4MiB
+//		LruCache<String, byte[]> lru = new LruCache<String, byte[]>(4000000);
 		
 		//-----TODO this is only for testing -delete afterwards!!!!
 		AudioDataAccess auda = new AudioDataAccess(this);
-		List<MediaItem> mediaList = auda.loadList();
+		final List<MediaItem> mediaList = auda.loadList();
 		int noOfItems = mediaList.size();
 		if (mediaList.size() > 10) {
 			noOfItems = 10;
 		} 
 		for(int  i=0 ; i< noOfItems; i++) {
+			final int j=i;
 			itemList.add( new SelectableItem(i, R.drawable.ic_launcher, mediaList.get(i).getTitle(), R.drawable.ic_launcher) {
 				
 				public void execute() {
+					AudioPlayer.getInstance(HomeActivity.this).playSound(mediaList.get(j).getUri());
+//					new MediaCacheManager().preload(HomeActivity.this, mediaList.get(j));
 					//TODO execute action->play song, maybe pause song...
 				}
 			});

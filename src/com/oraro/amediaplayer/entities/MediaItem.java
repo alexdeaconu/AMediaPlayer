@@ -2,6 +2,7 @@ package com.oraro.amediaplayer.entities;
 
 import android.net.Uri;
 
+import com.oraro.amediaplayer.log.MPLog;
 import com.oraro.amediaplayer.ui.list.Item;
 
 /**
@@ -38,6 +39,7 @@ public class MediaItem extends Item {
 		this.displayName = displayName;
 		this.title = title;
 		this.uri = uri;
+		MPLog.d("", "media uri: "+uri);
 	}
 
 	public String getArtist() {

@@ -22,7 +22,8 @@ public class AudioDataAccess extends DataAccess<MediaItem> {
 		MediaStore.Audio.Media.BOOKMARK,
 		MediaStore.Audio.Media.DURATION,
 		MediaStore.Audio.Media.DISPLAY_NAME,
-		MediaStore.Audio.Media.TITLE
+		MediaStore.Audio.Media.TITLE,
+		MediaStore.Audio.Media.DATA
 	};
 	
 	/**
@@ -51,15 +52,14 @@ public class AudioDataAccess extends DataAccess<MediaItem> {
 
 	@Override
 	protected MediaItem readValue(Cursor c) {
-		long itemId = c.getLong(c.getColumnIndex(MediaStore.Audio.Media._ID)); 
 		return new MediaItem(
-				itemId,
+				c.getLong(c.getColumnIndex(MediaStore.Audio.Media._ID)),
 				c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST)),
 				c.getInt(c.getColumnIndex(MediaStore.Audio.Media.BOOKMARK)),
 				c.getInt(c.getColumnIndex(MediaStore.Audio.Media.DURATION)),
 				c.getString(c.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME)),
 				c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE)),
-				Uri.parse(mUri + "/" + itemId));
+				Uri.parse(c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))));
 	}
 
 }

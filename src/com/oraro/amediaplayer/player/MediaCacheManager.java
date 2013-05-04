@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 
 import com.oraro.amediaplayer.entities.MediaItem;
+import com.oraro.amediaplayer.log.MPLog;
 
 
 /**
@@ -23,13 +24,14 @@ public class MediaCacheManager {
 	 * Preloads the media file
 	 * @param item contains the uri of the media file
 	 */
-	public MediaPlayer preload(Context context, MediaItem item) {
+	public void preload(Context context, MediaItem item) {
 		MediaPlayer mediaPlayer = new MediaPlayer();
-		mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		
 		try {
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 			mediaPlayer.setDataSource(context, item.getUri());
-			mediaPlayer.prepareAsync();
+			mediaPlayer.prepare();
+			MPLog.d("", "media uri: "+item.getUri());
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,6 +45,5 @@ public class MediaCacheManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return mediaPlayer;
 	}
 }
