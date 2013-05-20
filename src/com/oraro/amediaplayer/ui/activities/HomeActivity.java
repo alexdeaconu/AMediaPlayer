@@ -84,4 +84,8 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 		// TODO Auto-generated method stub
 	}
 	
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
 }
