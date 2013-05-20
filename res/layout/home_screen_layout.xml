@@ -4,14 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-	<fragment android:name="com.oraro.amediaplayer.ui.video.VideoPlayer"
-	    android:id="@+id/video"
-	    android:layout_width="fill_parent"
-	    android:layout_height="200dp" />
-	
+    <FrameLayout 
+        android:id="@+id/viewStub"
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        />
+    
 	<fragment android:name="com.oraro.amediaplayer.ui.list.GenericList"
 	    android:id="@+id/leftList"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    />
+
 </LinearLayout>

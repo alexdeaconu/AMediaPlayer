@@ -11,6 +11,7 @@ import com.oraro.amediaplayer.entities.MediaItem;
 import com.oraro.amediaplayer.player.AudioPlayer;
 import com.oraro.amediaplayer.ui.list.BaseListActivity;
 import com.oraro.amediaplayer.ui.list.SelectableItem;
+import com.oraro.amediaplayer.ui.video.VideoPlayer;
 
 /**
  * First displayed screen. Entry point of the application
@@ -22,14 +23,24 @@ import com.oraro.amediaplayer.ui.list.SelectableItem;
 public class HomeActivity extends BaseListActivity<SelectableItem> {
 
 	private static final String TAG = "HomeActivity";
+	
+	private VideoPlayer videoPlayer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		constructList();
 		registerFilters();
+		initFragments();
 	}
 	
+
+	private void initFragments() {
+		videoPlayer = new VideoPlayer();
+		getFragmentManager().beginTransaction().add(R.id.viewStub, videoPlayer)
+				.commit();
+	}
+
 
 	private void constructList() {
 		List<SelectableItem> itemList = new ArrayList<SelectableItem>();
@@ -51,11 +62,9 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 				public void execute() {
 					AudioPlayer.getInstance(HomeActivity.this).playSound(mediaList.get(j).getUri());
 					
-//					Intent i = new Intent(HomeActivity.this, OpenGLDemoActivity.class);
-//					startActivity(i);
-					
-//					new MediaCacheManager().preload(HomeActivity.this, mediaList.get(j));
-					//TODO execute action->play song, maybe pause song...
+					getFragmentManager().beginTransaction()
+							.replace(R.id.viewStub, videoPlayer)
+							.addToBackStack(null).commit();
 				}
 			});
 		}
@@ -73,7 +82,6 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 
 	public void refreshUI() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 }
