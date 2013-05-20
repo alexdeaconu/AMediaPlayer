@@ -3,18 +3,12 @@ package com.oraro.amediaplayer.ui.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
-import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.LruCache;
 
 import com.oraro.amediaplayer.R;
 import com.oraro.amediaplayer.dataaccess.AudioDataAccess;
 import com.oraro.amediaplayer.entities.MediaItem;
-import com.oraro.amediaplayer.log.MPLog;
 import com.oraro.amediaplayer.player.AudioPlayer;
-import com.oraro.amediaplayer.player.MediaCacheManager;
 import com.oraro.amediaplayer.ui.list.BaseListActivity;
 import com.oraro.amediaplayer.ui.list.SelectableItem;
 
@@ -56,6 +50,10 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 				
 				public void execute() {
 					AudioPlayer.getInstance(HomeActivity.this).playSound(mediaList.get(j).getUri());
+					
+//					Intent i = new Intent(HomeActivity.this, OpenGLDemoActivity.class);
+//					startActivity(i);
+					
 //					new MediaCacheManager().preload(HomeActivity.this, mediaList.get(j));
 					//TODO execute action->play song, maybe pause song...
 				}
@@ -70,7 +68,7 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 
 	@Override
 	protected int getLayoutRes() {
-		return super.getLayoutRes();
+		return R.layout.home_screen_layout;
 	}
 
 	public void refreshUI() {

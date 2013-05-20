@@ -48,6 +48,13 @@ public class GenericAdapter<T extends SelectableItem> extends ArrayAdapter<T> {
 		TextView content = (TextView) row.findViewById(R.id.content);
 		content.setText(item.getDescription());
 		
+		if (position == getCurrentPosition()) {
+			row.setBackgroundResource(R.drawable.list_normal );
+		} 
+		else {
+			row.setBackgroundResource(R.drawable.list_focus);
+		}
+		
 		return row;
 	}
 
