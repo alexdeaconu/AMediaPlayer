@@ -197,5 +197,17 @@ public class AudioPlayer {
 		playSound(playlist.getFirst());
 		
 	}
+
+	
+	/**
+	 * Wrapper method that get the media player's session id
+	 * @return the media player session id
+	 */
+	public int getSessionId() {
+		if(mediaPlayer != null ) {
+			return mediaPlayer.getAudioSessionId();
+		}
+		return -1;
+	}
 	
 }
