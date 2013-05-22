@@ -26,7 +26,7 @@ public class VideoPlayer extends Fragment {
 			Bundle savedInstanceState) {
 
 		GLSurfaceView view = new GLSurfaceView(getActivity());
-		view.setRenderer(new OpenGLRenderer(getActivity()));
+		view.setRenderer(new OpenGLRenderer(getActivity(),1));
 		return view;
 	}
 	
