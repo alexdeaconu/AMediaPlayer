@@ -14,14 +14,22 @@
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/leftImage"/>
+    
+    <TextView
+        android:id="@+id/artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/leftImage"
-        android:text="TextView" />
+        android:layout_below="@id/content"
+        android:text="artist"/>
 
     <ImageView
         android:id="@+id/rightImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher" 
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

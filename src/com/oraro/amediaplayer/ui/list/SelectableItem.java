@@ -16,17 +16,19 @@ public abstract class SelectableItem extends Item implements SelectableComponent
 	private List<SelectableComponent> subItemList;
 	private int leftImageResId;
 	private String text;
+	private String subtitle;
 	private int rightImageResId;
 	
 	public SelectableItem() {
 		super();
 	}
 	
-	public SelectableItem(int id, int leftImageResId, String text, int rightImageRes) {
+	public SelectableItem(int id, int leftImageResId, String text, int rightImageRes, String subtitle) {
 		super(id);
 		this.leftImageResId = leftImageResId;
 		this.text = text;
 		this.rightImageResId = rightImageRes;
+		this.subtitle = subtitle;
 	}
 	
 	
@@ -66,7 +68,11 @@ public abstract class SelectableItem extends Item implements SelectableComponent
 	public String getDescription() {
 		return text;
 	}
+	
 
+	public String getSubtitle() {
+		return subtitle;
+	}
 
 	@Override
 	public int getRightImageId() {

@@ -54,7 +54,7 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 
 	@Override
 	protected void onProgressUpdate(final T... values) {
-		listController.add(new SelectableItem(-1, R.drawable.ic_launcher, values[0].getTitle(), R.drawable.ic_launcher) {
+		listController.add(new SelectableItem(-1, R.drawable.ic_launcher, values[0].getTitle(), R.drawable.ic_launcher, values[0].getArtist()) {
 			
 			@Override
 			public void execute() {
