@@ -31,7 +31,7 @@ public class VisualizerView extends View {
 	private Paint mFlashPaint = new Paint();
 	private Paint mFadePaint = new Paint();
 
-	private com.oraro.amediaplayer.ui.video.BarGraphRenderer barGraphRendererBottom;
+	private com.oraro.amediaplayer.ui.video.BarRenderer barGraphRendererBottom;
 	
 	public VisualizerView(Context context, AttributeSet attrs, int defStyle)
 	{
@@ -60,7 +60,7 @@ public class VisualizerView extends View {
 		paint.setStrokeWidth(50f);
 		paint.setAntiAlias(true);
 		paint.setColor(Color.argb(200, 56, 138, 252));
-		barGraphRendererBottom = new BarGraphRenderer(16, paint, false);
+		barGraphRendererBottom = new BarRenderer(16, paint, false);
 	}
 	
 	/**

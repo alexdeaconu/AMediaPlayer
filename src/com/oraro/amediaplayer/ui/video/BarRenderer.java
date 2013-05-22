@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-public class BarGraphRenderer extends AbstractRenderer
+public class BarRenderer extends AbstractRenderer
 {
   private int mDivisions;
   private Paint mPaint;
@@ -19,7 +19,7 @@ public class BarGraphRenderer extends AbstractRenderer
    * @param paint - Paint to draw lines with
    * @param top - whether to draw the lines at the top of the canvas, or the bottom
    */
-	public BarGraphRenderer(int divisions, Paint paint, boolean top) {
+	public BarRenderer(int divisions, Paint paint, boolean top) {
 		super(divisions);
 		mDivisions = divisions;
 		mPaint = paint;
