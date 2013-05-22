@@ -5,26 +5,30 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.media.audiofx.Visualizer;
-import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
+
+import com.oraro.amediaplayer.player.AudioPlayer;
+import com.oraro.amediaplayer.ui.PlayerRenderer;
 
 /**
  * @author alexandru.deaconu
  * @date May 19, 2013, 4:29:27 PM
  * @version
  */
-public class OpenGLRenderer implements Renderer {
+public class OpenGLRenderer extends PlayerRenderer {
 
     private Cube mCube = new Cube();
     private float mCubeRotation = (float) -0.5;
 	private Visualizer visual;
 	private Context mContext;
 
-    public OpenGLRenderer(Context context) {
+    public OpenGLRenderer(Context context, int divisions) {
+    	super(context, divisions);
     	this.mContext = context;
-//    	visual = new Visualizer(AudioPlayer.getInstance(mContext).getMediaPlayer().getAudioSessionId());
-//    	visual.setCaptureSize(4);
-//    	visual.setEnabled(true);
+    	
+    	// Create the Visualizer object and attach it to our media player.  // player.getAudioSessionId()
+    	visual = new Visualizer(AudioPlayer.getInstance(mContext).getSessionId());
+    	visual.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
     }
     
     @Override
@@ -67,4 +71,36 @@ public class OpenGLRenderer implements Renderer {
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
     }
+
+	@Override
+	public void onFftDataCapture(Visualizer visualizer, byte[] fft,
+			int samplingRate) {
+
+//		for (int i = 0; i < fft.length / mDivisions ; i++) {
+//		      mFFTPoints[i * 4] = i * 4 * mDivisions;
+//		      mFFTPoints[i * 4 + 2] = i * 4 * mDivisions;
+//		      byte rfk = fft.[mDivisions * i];
+//		      byte ifk = fft.[mDivisions * i + 1];
+//		      float magnitude = (rfk * rfk + ifk * ifk);
+//		      int dbValue = (int) (10 * Math.log10(magnitude));
+//
+//		      if(mTop)
+//		      {
+//		        mFFTPoints[i * 4 + 1] = 0;
+//		        mFFTPoints[i * 4 + 3] = (dbValue * 2 - 10);
+//		      }
+//		      else
+//		      {
+//		        mFFTPoints[i * 4 + 1] = rect.height();
+//		        mFFTPoints[i * 4 + 3] = rect.height() - (dbValue * 2 - 10);
+//		      }
+//		    }
+	}
+
+	@Override
+	public void onWaveFormDataCapture(Visualizer visualizer, byte[] waveform,
+			int samplingRate) {
+		// TODO Auto-generated method stub
+		
+	}
 }
