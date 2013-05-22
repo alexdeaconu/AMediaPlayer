@@ -2,11 +2,12 @@ package com.oraro.amediaplayer.ui.video;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.oraro.amediaplayer.player.AudioPlayer;
 
 /**
  * Class that displays the content of a media file
@@ -25,8 +26,11 @@ public class VideoPlayer extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		GLSurfaceView view = new GLSurfaceView(getActivity());
-		view.setRenderer(new OpenGLRenderer(getActivity(),1));
+//		GLSurfaceView view = new GLSurfaceView(getActivity());
+//		view.setRenderer(new CubeRenderer(getActivity(),1));
+		
+		VisualizerView view = new VisualizerView(getActivity());
+		view.link(AudioPlayer.getInstance(getActivity()).getMediaPlayer());
 		return view;
 	}
 	
@@ -41,7 +45,9 @@ public class VideoPlayer extends Fragment {
 		}
 		
 		getFragmentManager().beginTransaction().remove(this)
-				.add(fragment, VIDEO_FRAGMENT).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+				.add(fragment, VIDEO_FRAGMENT)
+				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+				.commit();
 		
 //		View currentView = this.getView();
 //		ViewGroup parentView = (ViewGroup) currentView.getParent();
@@ -50,5 +56,7 @@ public class VideoPlayer extends Fragment {
 //		currentView = getActivity().getLayoutInflater().inflate(resId, parentView, false);
 //		parentView.addView(currentView, currentIdx);
 	}
+	
+	
 	
 }

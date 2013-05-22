@@ -2,14 +2,11 @@ package com.oraro.amediaplayer.ui.activities;
 
 import java.util.List;
 
-import android.media.MediaPlayer;
-import android.media.audiofx.Visualizer;
 import android.os.Bundle;
 
 import com.oraro.amediaplayer.R;
 import com.oraro.amediaplayer.dataaccess.AudioDataAccess;
 import com.oraro.amediaplayer.entities.MediaItem;
-import com.oraro.amediaplayer.log.MPLog;
 import com.oraro.amediaplayer.player.AudioPlayer;
 import com.oraro.amediaplayer.ui.list.BaseListActivity;
 import com.oraro.amediaplayer.ui.list.ListAsyncTask;
@@ -28,27 +25,10 @@ import com.oraro.amediaplayer.ui.video.VideoPlayer;
  */
 public class HomeActivity extends BaseListActivity<SelectableItem> {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "HomeActivity";
 	
 	private VideoPlayer videoPlayer;
-
-	private Visualizer vis;
-	
-	private final Visualizer.OnDataCaptureListener captureListener = new Visualizer.OnDataCaptureListener() {
-		@Override
-		public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes,
-				int samplingRate) {
-			MPLog.d(TAG, "Received bytes: " + byteArrayToHexString(bytes, true));
-			System.out.println("onWaveFormDataCapture");
-		}
-
-		@Override
-		public void onFftDataCapture(Visualizer visualizer, byte[] bytes,
-				int samplingRate) {
-			System.out.println("onFftDataCapture");
-		}
-	};
-
 	
 	private final MediaRunnable commonBehaviorRunnable = new MediaRunnable() {
 		
@@ -56,25 +36,6 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 		public void execute(MediaItem mediaItem) {
 			AudioPlayer.getInstance(HomeActivity.this).playSound(mediaItem.getUri());
 			
-			getFragmentManager().beginTransaction()
-					.replace(R.id.viewStub, videoPlayer)
-					.addToBackStack(null).commit();
-			
-			vis.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
-			
-
-		    vis.setDataCaptureListener(captureListener,
-		            Visualizer.getMaxCaptureRate() / 2, true, false);
-
-		    vis.setEnabled(true);
-		    AudioPlayer.getInstance(HomeActivity.this).mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
-		    {
-		        @Override
-		        public void onCompletion(MediaPlayer mediaPlayer)
-		        {
-		            vis.setEnabled(false);
-		        }
-		    });
 		}
 	};
 	
@@ -103,8 +64,6 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AudioPlayer.getInstance(this);
-		vis = new Visualizer(AudioPlayer.getInstance(HomeActivity.this).mediaPlayer.getAudioSessionId());
-		
 		constructList();
 		registerFilters();
 		initFragments();
@@ -138,6 +97,7 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 	
 	@Override
 	public void onBackPressed() {
+		AudioPlayer.getInstance(this).stopAudio();
 		finish();
 	}
 }

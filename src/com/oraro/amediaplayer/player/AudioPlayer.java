@@ -80,7 +80,7 @@ public class AudioPlayer {
 	}
 	
 	public synchronized void playSound(Uri soundUri){
-		stopPlayAudioWithoutSpeakerOff();
+		stopAudio();
 		
 		if (soundUri == null)
 			return ;
@@ -141,18 +141,8 @@ public class AudioPlayer {
 	/**
 	 * Stops only one audio file
 	 */
-	public synchronized void stopPlayAudio() {
+	public synchronized void stopAudio() {
 
-		stopPlayAudioWithoutSpeakerOff();
-		
-	}
-	
-	
-	/**
-	 * Stops the audio stream, without turning off the speaker
-	 */
-	private synchronized void stopPlayAudioWithoutSpeakerOff() {
-		
 		if (mediaPlayer.isPlaying()){
 			
 			mediaPlayer.stop();
@@ -160,6 +150,7 @@ public class AudioPlayer {
 		}
 		
 		mediaPlayer.reset();
+		
 	}
 	
 	
@@ -168,7 +159,7 @@ public class AudioPlayer {
 	 */
 	public synchronized void stopPlaylist() {
 
-		stopPlayAudio();
+		stopAudio();
 		
 		playlist = null;
 	}
@@ -208,6 +199,11 @@ public class AudioPlayer {
 			return mediaPlayer.getAudioSessionId();
 		}
 		return -1;
+	}
+
+	public MediaPlayer getMediaPlayer() {
+		// TODO Auto-generated method stub
+		return mediaPlayer;
 	}
 	
 }
