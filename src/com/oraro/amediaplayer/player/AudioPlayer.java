@@ -22,7 +22,7 @@ public class AudioPlayer {
 	private static AudioPlayer instance;
 	private static AudioPlayer notificationInstance;
 	
-	private MediaPlayer mediaPlayer;
+	public MediaPlayer mediaPlayer;
 	private LinkedList<Uri> playlist;
 	private Context mContext;
 	

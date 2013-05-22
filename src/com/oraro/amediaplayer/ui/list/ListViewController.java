@@ -1,5 +1,6 @@
 package com.oraro.amediaplayer.ui.list;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class ListViewController<T extends SelectableItem> implements Refreshable
 
 	public ListViewController(ListFragment listFragment) {
 		mAdapter = new GenericAdapter<T>(listFragment.getView().getContext(), R.layout.generic_item);
+		list = new ArrayList<T>();
 		
 		this.listFragment = listFragment;
 		this.listFragment.setListAdapter(mAdapter);
@@ -68,6 +70,21 @@ public class ListViewController<T extends SelectableItem> implements Refreshable
 		mAdapter.setList(list);
 	}
 
+	
+	/**
+	 * Adds an item in the list
+	 * @param selectableItem an item which can be clicked by the user
+	 */
+	public void add(T selectableItem) {
+		if(selectableItem == null) {
+			return;
+		}
+		
+		list.add(selectableItem);
+		mAdapter.add(selectableItem);
+	}
+	
+	
 	public void refreshUI() {
 		mAdapter.notifyDataSetChanged();
 	}

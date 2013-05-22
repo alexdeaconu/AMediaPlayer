@@ -41,6 +41,11 @@ public abstract class BaseListActivity<T extends SelectableItem> extends BaseAct
 	protected int getLayoutRes() {
 		return R.layout.base_list;
 	}
+
+
+	public ListViewController<T> getLeftListController() {
+		return leftListController;
+	}
 	
 	
 }

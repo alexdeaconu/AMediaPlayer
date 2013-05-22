@@ -74,6 +74,17 @@ public class GenericAdapter<T extends SelectableItem> extends ArrayAdapter<T> {
 		notifyDataSetChanged();
 	}
 	
+	
+	@Override
+	public void add(T item) {
+		if(item == null) {
+			return;
+		}
+		
+		super.add(item);
+		notifyDataSetChanged();
+	}
+
 
 	/**
 	 * Sets the currently selected item from the list
