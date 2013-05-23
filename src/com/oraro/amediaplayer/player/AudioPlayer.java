@@ -206,4 +206,30 @@ public class AudioPlayer {
 		return mediaPlayer;
 	}
 	
+	
+	/**
+	 * Pauses the current played media file 
+	 */
+	public void pause() {
+		try{
+			if(!mediaPlayer.isPlaying()) {
+				mediaPlayer.pause();
+			}
+		}catch (IllegalStateException e) {
+			MPLog.w(TAG, "Could not check media player state", e);
+		}
+	}
+	
+	
+	/**
+	 * Jumps to the specified ms of the track
+	 * @param ms the time where to jump to
+	 */
+	public void seek(int ms) {
+		try{
+			mediaPlayer.seekTo(ms);
+		}catch (IllegalStateException e) {
+			MPLog.w(TAG, "Could not seek", e);
+		}
+	}
 }
