@@ -1,5 +1,8 @@
 package com.oraro.amediaplayer.ui.video;
 
+import com.oraro.amediaplayer.log.MPLog;
+import com.oraro.amediaplayer.ui.activities.HomeActivity;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -91,6 +94,7 @@ public class VisualizerView extends View {
 			public void onFftDataCapture(Visualizer visualizer, byte[] bytes,
 					int samplingRate)
 			{
+				MPLog.d(TAG, "the fft bytes are: "+HomeActivity.byteArrayToHexString(bytes, true));
 				updateVisualizerFFT(bytes);
 			}
 		};
@@ -99,7 +103,15 @@ public class VisualizerView extends View {
 				Visualizer.getMaxCaptureRate() / 2, true, true);
 		
 		// Enabled Visualizer and disable when we're done with the stream
-		mVisualizer.setEnabled(true);
+		player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+			
+			@Override
+			public void onPrepared(MediaPlayer mp) {
+				// TODO Auto-generated method stub
+				mVisualizer.setEnabled(true);
+				
+			}
+		});
 		player.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 		{
 			@Override
