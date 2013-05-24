@@ -24,7 +24,7 @@ import android.view.View;
  * {@link Visualizer.OnDataCaptureListener#onFftDataCapture }
  */
 public class VisualizerView extends View {
-	@SuppressWarnings("unused")
+
 	private static final String TAG = "VisualizerView";
 	
 	private byte[] mFFTBytes;
@@ -36,19 +36,16 @@ public class VisualizerView extends View {
 
 	private com.oraro.amediaplayer.ui.video.BarRenderer barGraphRendererBottom;
 	
-	public VisualizerView(Context context, AttributeSet attrs, int defStyle)
-	{
+	public VisualizerView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs);
 		init();
 	}
-	
-	public VisualizerView(Context context, AttributeSet attrs)
-	{
+
+	public VisualizerView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
-	
-	public VisualizerView(Context context)
-	{
+
+	public VisualizerView(Context context) {
 		this(context, null, 0);
 	}
 	
@@ -86,14 +83,12 @@ public class VisualizerView extends View {
 		{
 			@Override
 			public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes,
-					int samplingRate)
-			{
+					int samplingRate) {
 			}
 			
 			@Override
 			public void onFftDataCapture(Visualizer visualizer, byte[] bytes,
-					int samplingRate)
-			{
+					int samplingRate) {
 				MPLog.d(TAG, "the fft bytes are: "+HomeActivity.byteArrayToHexString(bytes, true));
 				updateVisualizerFFT(bytes);
 			}
@@ -112,11 +107,10 @@ public class VisualizerView extends View {
 				
 			}
 		});
-		player.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
-		{
+		player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+			
 			@Override
-			public void onCompletion(MediaPlayer mediaPlayer)
-			{
+			public void onCompletion(MediaPlayer mediaPlayer) {
 				mVisualizer.setEnabled(false);
 			}
 		});
@@ -127,8 +121,7 @@ public class VisualizerView extends View {
 	 * Call to release the resources used by VisualizerView. Like with the
 	 * MediaPlayer it is good practice to call this method
 	 */
-	public void release()
-	{
+	public void release() {
 		mVisualizer.release();
 	}
 	
@@ -166,15 +159,13 @@ public class VisualizerView extends View {
 		// Create canvas once we're ready to draw
 		mRect.set(0, 0, getWidth(), getHeight());
 		
-		if(mCanvasBitmap == null)
-		{
+		if(mCanvasBitmap == null) {
 			mCanvasBitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Config.ARGB_8888);
 		}
-		if(mCanvas == null)
-		{
+		
+		if (mCanvas == null) {
 			mCanvas = new Canvas(mCanvasBitmap);
 		}
-		
 		
 		if (mFFTBytes != null) {
 			// Render all FFT renderers
@@ -184,8 +175,7 @@ public class VisualizerView extends View {
 		// Fade out old contents
 		mCanvas.drawPaint(mFadePaint);
 		
-		if(mFlash)
-		{
+		if(mFlash) {
 			mFlash = false;
 			mCanvas.drawPaint(mFlashPaint);
 		}
