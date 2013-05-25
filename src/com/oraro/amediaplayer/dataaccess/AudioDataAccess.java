@@ -23,7 +23,8 @@ public class AudioDataAccess extends DataAccess<MediaItem> {
 		MediaStore.Audio.Media.DURATION,
 		MediaStore.Audio.Media.DISPLAY_NAME,
 		MediaStore.Audio.Media.TITLE,
-		MediaStore.Audio.Media.DATA
+		MediaStore.Audio.Media.DATA,
+		MediaStore.Audio.Media.ALBUM_ID
 	};
 	
 	/**
@@ -59,7 +60,9 @@ public class AudioDataAccess extends DataAccess<MediaItem> {
 				c.getInt(c.getColumnIndex(MediaStore.Audio.Media.DURATION)),
 				c.getString(c.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME)),
 				c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE)),
-				Uri.parse(c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))));
+				Uri.parse(c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))),
+				c.getInt(c.getColumnIndex(MediaStore.Audio.Media.TITLE))
+				);
 	}
 
 }

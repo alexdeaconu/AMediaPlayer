@@ -59,7 +59,8 @@ public class VideoDataAccess extends DataAccess<MediaItem> {
 				c.getInt(c.getColumnIndex(MediaStore.Video.Media.DURATION)),
 				c.getString(c.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME)),
 				c.getString(c.getColumnIndex(MediaStore.Video.Media.TITLE)),
-				Uri.parse(c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA)))
+				Uri.parse(c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))),
+				-1
 				);
 	}
 

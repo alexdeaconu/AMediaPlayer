@@ -20,6 +20,7 @@ public class MediaItem extends Item {
 	private String displayName;
 	private String title;
 	private Uri uri;
+	private int albumId;
 
 	/**
 	 * @param id The unique ID for a row. 
@@ -29,9 +30,10 @@ public class MediaItem extends Item {
 	 * @param displayName The display name of the file 
 	 * @param title The title of the content 
 	 * @param uri the uri which identifies the media e.g. content://media/external/audio/media/999
+	 * @param albumId 
 	 */
 	public MediaItem(long id, String artist, int bookmark, int duration,
-			String displayName, String title, Uri uri) {
+			String displayName, String title, Uri uri, int albumId) {
 		super(id);
 		this.artist = artist;
 		this.bookmark = bookmark;
@@ -39,6 +41,7 @@ public class MediaItem extends Item {
 		this.displayName = displayName;
 		this.title = title;
 		this.uri = uri;
+		this.albumId = albumId;
 		MPLog.d("", "media uri: "+uri);
 	}
 
