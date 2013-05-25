@@ -68,4 +68,9 @@ public class MediaItem extends Item {
 	public Uri getUri() {
 		return uri;
 	}
+
+	public int getAlbumId() {
+		return albumId;
+	}
+	
 }

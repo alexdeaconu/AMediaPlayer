@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -107,7 +108,7 @@ public class MediaPlayerView extends RelativeLayout implements OnSeekBarChangeLi
 	//////////////////////////////////////////////////
 	
 	private void init(Context context) {
-		inflate(context, R.layout.media_player_view, null);
+		inflate(context, R.layout.media_player_view, this);
 	}
 	
 	/**

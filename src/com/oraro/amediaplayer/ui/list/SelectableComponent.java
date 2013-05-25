@@ -2,6 +2,8 @@ package com.oraro.amediaplayer.ui.list;
 
 import java.util.List;
 
+import android.graphics.Bitmap;
+
 /**
  * Interface used for all items. It eases the handling of items that have
  * sub-items and sub-sub-items.
@@ -22,7 +24,7 @@ public interface SelectableComponent {
 	
 	public abstract void execute();
 	
-	public abstract int getLeftImageId();
+	public abstract Bitmap getLeftImageId();
 
 	public abstract int getRightImageId();
 	

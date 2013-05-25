@@ -61,7 +61,7 @@ public class AudioDataAccess extends DataAccess<MediaItem> {
 				c.getString(c.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME)),
 				c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE)),
 				Uri.parse(c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA))),
-				c.getInt(c.getColumnIndex(MediaStore.Audio.Media.TITLE))
+				c.getInt(c.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
 				);
 	}
 

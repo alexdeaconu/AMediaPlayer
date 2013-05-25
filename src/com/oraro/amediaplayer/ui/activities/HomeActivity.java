@@ -81,7 +81,7 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 		AudioDataAccess auda = new AudioDataAccess(this);
 		final List<MediaItem> mediaList = auda.loadList();
 
-		ListAsyncTask<MediaItem> loader = new ListAsyncTask<MediaItem>(getLeftListController(), mediaList, commonBehaviorRunnable);
+		ListAsyncTask<MediaItem> loader = new ListAsyncTask<MediaItem>(this, getLeftListController(), mediaList, commonBehaviorRunnable);
 		loader.execute();
 	}
 

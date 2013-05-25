@@ -6,6 +6,8 @@ package com.oraro.amediaplayer.ui.list;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Bitmap;
+
 
 /**
  * @author alexandru.deaconu
@@ -14,7 +16,7 @@ import java.util.List;
 public abstract class SelectableItem extends Item implements SelectableComponent{
 
 	private List<SelectableComponent> subItemList;
-	private int leftImageResId;
+	private Bitmap leftImageResId;
 	private String text;
 	private String subtitle;
 	private int rightImageResId;
@@ -23,7 +25,7 @@ public abstract class SelectableItem extends Item implements SelectableComponent
 		super();
 	}
 	
-	public SelectableItem(int id, int leftImageResId, String text, int rightImageRes, String subtitle) {
+	public SelectableItem(int id, Bitmap leftImageResId, String text, int rightImageRes, String subtitle) {
 		super(id);
 		this.leftImageResId = leftImageResId;
 		this.text = text;
@@ -59,7 +61,7 @@ public abstract class SelectableItem extends Item implements SelectableComponent
 	
 
 	@Override
-	public int getLeftImageId() {
+	public Bitmap getLeftImageId() {
 		return leftImageResId;
 	}
 

@@ -49,6 +49,7 @@ public class GenericAdapter<T extends SelectableItem> extends ArrayAdapter<T> {
 		TextView artist = (TextView) row.findViewById(R.id.artist);
 		content.setText(item.getDescription());
 		artist.setText(item.getSubtitle());
+		leftImage.setImageBitmap(item.getLeftImageId());
 		
 		if (position == getCurrentPosition()) {
 			row.setBackgroundResource(R.drawable.list_normal );
