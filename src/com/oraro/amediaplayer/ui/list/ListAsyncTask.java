@@ -121,7 +121,8 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 				
 				if (pfd != null) {
 					FileDescriptor fd = pfd.getFileDescriptor();
-					final Bitmap bm1 = BitmapFactory.decodeFileDescriptor(fd);
+					bm = BitmapFactory.decodeFileDescriptor(fd);
+					final Bitmap bm1 = Bitmap.createScaledBitmap(bm,150, 150, true);
 					bm = bm1;
 					
 					MPLog.d(TAG, "Loading into memory");

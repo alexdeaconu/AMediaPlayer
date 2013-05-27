@@ -1,8 +1,5 @@
 package com.oraro.amediaplayer.ui.video;
 
-import com.oraro.amediaplayer.log.MPLog;
-import com.oraro.amediaplayer.ui.activities.HomeActivity;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -25,6 +22,7 @@ import android.view.View;
  */
 public class VisualizerView extends View {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "VisualizerView";
 	
 	private byte[] mFFTBytes;
@@ -67,7 +65,7 @@ public class VisualizerView extends View {
 	 * Links the visualizer to a player
 	 * @param player - MediaPlayer instance to link to
 	 */
-	public void link(MediaPlayer player)
+	public void link(MediaPlayer player) throws IllegalStateException 
 	{
 		if(player == null)
 		{
@@ -89,7 +87,7 @@ public class VisualizerView extends View {
 			@Override
 			public void onFftDataCapture(Visualizer visualizer, byte[] bytes,
 					int samplingRate) {
-				MPLog.d(TAG, "the fft bytes are: "+HomeActivity.byteArrayToHexString(bytes, true));
+//				MPLog.d(TAG, "the fft bytes are: "+HomeActivity.byteArrayToHexString(bytes, true));
 				updateVisualizerFFT(bytes);
 			}
 		};

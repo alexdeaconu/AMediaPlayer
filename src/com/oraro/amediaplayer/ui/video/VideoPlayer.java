@@ -2,6 +2,7 @@ package com.oraro.amediaplayer.ui.video;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +26,13 @@ public class VideoPlayer extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-//		GLSurfaceView view = new GLSurfaceView(getActivity());
-//		view.setRenderer(new CubeRenderer(getActivity(),1));
 		
-		VisualizerView view = new VisualizerView(getActivity());
-		view.link(AudioPlayer.getInstance(getActivity()).getMediaPlayer());
+		VisualizerView view = null;
+		try{
+			view = new VisualizerView(getActivity());
+			view.link(AudioPlayer.getInstance(getActivity()).getMediaPlayer());
+		}catch (IllegalStateException e) {
+		}
 		return view;
 	}
 	
