@@ -2,7 +2,6 @@ package com.oraro.amediaplayer.ui.video;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -41,6 +41,11 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 
 	private long sleepTime = 75;
 
+	private int bitmapHeight = 150;
+
+	private int bitmapWidth = 150;
+
+	private static final Uri ARTWORK_URI =  Uri.parse("content://media/external/audio/albumart");
 
 	/**
 	 * 
@@ -111,10 +116,7 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 			sleepTime = 75;
 			Bitmap bm = null;
 			try {
-				final Uri sArtworkUri =  Uri
-						.parse("content://media/external/audio/albumart");
-				
-				Uri uri = ContentUris.withAppendedId(sArtworkUri, album_id);
+				Uri uri = ContentUris.withAppendedId(ARTWORK_URI, album_id);
 				
 				ParcelFileDescriptor pfd = context.getContentResolver()
 						.openFileDescriptor(uri, "r");
@@ -122,7 +124,7 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 				if (pfd != null) {
 					FileDescriptor fd = pfd.getFileDescriptor();
 					bm = BitmapFactory.decodeFileDescriptor(fd);
-					final Bitmap bm1 = Bitmap.createScaledBitmap(bm,150, 150, true);
+					final Bitmap bm1 = Bitmap.createScaledBitmap(bm,bitmapWidth, bitmapHeight, true);
 					bm = bm1;
 					
 					MPLog.d(TAG, "Loading into memory");
@@ -151,6 +153,16 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 			return bm;
 		}
 		
+	}
+
+
+	public void setBitmapHeight(int height) {
+		this.bitmapHeight = height;
+	}
+
+
+	public void setBitmapWidth(int width) {
+		this.bitmapWidth = width;
 	}
 
 }

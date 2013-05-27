@@ -3,6 +3,7 @@ package com.oraro.amediaplayer.ui.activities;
 import java.util.List;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import com.oraro.amediaplayer.R;
 import com.oraro.amediaplayer.dataaccess.AudioDataAccess;
@@ -83,7 +84,14 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 		AudioDataAccess auda = new AudioDataAccess(this);
 		final List<MediaItem> mediaList = auda.loadList();
 
+		DisplayMetrics displaymetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		int height = displaymetrics.heightPixels;
+//		int width = displaymetrics.widthPixels;
+		
 		loader = new ListAsyncTask<MediaItem>(this, getLeftListController(), mediaList, commonBehaviorRunnable);
+		loader.setBitmapHeight(height/10);
+		loader.setBitmapWidth(height/10);
 		loader.execute();
 	}
 
@@ -101,7 +109,7 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 	public void onBackPressed() {
 		AudioPlayer.getInstance(this).stopAudio();
 		loader.cancel(true);
-		finish();
 		loader = null;
+		finish();
 	}
 }
