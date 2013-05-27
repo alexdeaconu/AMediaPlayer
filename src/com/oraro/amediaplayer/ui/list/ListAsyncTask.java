@@ -2,6 +2,7 @@ package com.oraro.amediaplayer.ui.list;
 
 import java.io.FileDescriptor;
 import java.util.List;
+import java.util.Map.Entry;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -12,6 +13,9 @@ import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
 
 import com.oraro.amediaplayer.R;
+import com.oraro.amediaplayer.cache.AbstractCache;
+import com.oraro.amediaplayer.cache.CacheFactory;
+import com.oraro.amediaplayer.cache.CacheFactory.CacheTypes;
 import com.oraro.amediaplayer.entities.MediaItem;
 import com.oraro.amediaplayer.log.MPLog;
 
@@ -33,6 +37,10 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 	private MediaRunnable commonBehaviourRunnable;
 	private Context context;
 
+	private AbstractCache<Integer, Bitmap> bitmapCache;
+
+	private long sleepTime = 75;
+
 
 	/**
 	 * 
@@ -42,11 +50,13 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 	 *            used for playing audio and UI screen specific operations like
 	 *            detaching/attaching UI fragments on a layout
 	 */
+	@SuppressWarnings("unchecked")
 	public ListAsyncTask(Context context, ListViewController<SelectableItem> listController, List<T> itemList, MediaRunnable commonBehaviorRunnable) {
 		this.listController = listController;
 		this.itemList = itemList;
 		this.commonBehaviourRunnable = commonBehaviorRunnable;
 		this.context = context;
+		this.bitmapCache = CacheFactory.getCache(CacheTypes.BITMAP);
 	}
 	
 	
@@ -55,21 +65,27 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 	protected Boolean doInBackground(Void... params) {
 		if(itemList == null || listController == null) {
 			cancel(true);
+			return false;
 		}
 		
-		int i=0;
-		
 		for(T item :itemList) {
+			if(isCancelled()) {
+				break;
+			}
+			
 			publishProgress(item);
 	
 			try {
-				Thread.sleep(i%2 ==0 ? 50: 100);
+				if(sleepTime != 0) {
+					Thread.sleep(sleepTime);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+				cancel(true);
 			}
-			
-			i++;
 		}
+		
+		itemList = null;
 		return true;
 	}
 
@@ -87,27 +103,53 @@ public class ListAsyncTask<T extends MediaItem> extends AsyncTask<Void, T, Boole
 		});
 	}
 	
-	public Bitmap getAlbumart(int album_id) {
-		Bitmap bm = null;
-		try {
-			final Uri sArtworkUri =  Uri
-		            .parse("content://media/external/audio/albumart");
-
-			Uri uri = ContentUris.withAppendedId(sArtworkUri, album_id);
-			MPLog.d(TAG, "The appended album uri is:"+uri);
-
-			ParcelFileDescriptor pfd = context.getContentResolver()
-					.openFileDescriptor(uri, "r");
-
-			if (pfd != null) {
-				FileDescriptor fd = pfd.getFileDescriptor();
-				bm = BitmapFactory.decodeFileDescriptor(fd);
-			} 
-			
-		} catch (Exception e) {
-			MPLog.w(TAG, "The bitmap is null. Could not get album bitmap", e);
+	public Bitmap getAlbumart(final int album_id) {
+		if(this.bitmapCache.get(album_id) != null) {
+			this.sleepTime = 50;
+			return (Bitmap) this.bitmapCache.get(album_id); 
+		} else {
+			sleepTime = 75;
+			Bitmap bm = null;
+			try {
+				final Uri sArtworkUri =  Uri
+						.parse("content://media/external/audio/albumart");
+				
+				Uri uri = ContentUris.withAppendedId(sArtworkUri, album_id);
+				
+				ParcelFileDescriptor pfd = context.getContentResolver()
+						.openFileDescriptor(uri, "r");
+				
+				if (pfd != null) {
+					FileDescriptor fd = pfd.getFileDescriptor();
+					final Bitmap bm1 = BitmapFactory.decodeFileDescriptor(fd);
+					bm = bm1;
+					
+					MPLog.d(TAG, "Loading into memory");
+					bitmapCache.put(new Entry<Integer, Bitmap>() {
+						
+						@Override
+						public Integer getKey() {
+							return album_id;
+						}
+						
+						@Override
+						public Bitmap getValue() {
+							return bm1;
+						}
+						
+						@Override
+						public Bitmap setValue(Bitmap object) {
+							return object;
+						}
+					});
+				} 
+				
+			} catch (Exception e) {
+				MPLog.w(TAG, "The bitmap is null. Could not get album bitmap", e);
+			}
+			return bm;
 		}
-		return bm;
+		
 	}
 
 }

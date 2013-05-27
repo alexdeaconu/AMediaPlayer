@@ -38,6 +38,8 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 			
 		}
 	};
+
+	private ListAsyncTask<MediaItem> loader;
 	
 	/**
 	 * Converts an array of bytes to its hexadecimal representation.
@@ -81,7 +83,7 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 		AudioDataAccess auda = new AudioDataAccess(this);
 		final List<MediaItem> mediaList = auda.loadList();
 
-		ListAsyncTask<MediaItem> loader = new ListAsyncTask<MediaItem>(this, getLeftListController(), mediaList, commonBehaviorRunnable);
+		loader = new ListAsyncTask<MediaItem>(this, getLeftListController(), mediaList, commonBehaviorRunnable);
 		loader.execute();
 	}
 
@@ -98,6 +100,8 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 	@Override
 	public void onBackPressed() {
 		AudioPlayer.getInstance(this).stopAudio();
+		loader.cancel(true);
 		finish();
+		loader = null;
 	}
 }
