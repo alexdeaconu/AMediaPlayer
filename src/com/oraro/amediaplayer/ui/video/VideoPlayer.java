@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.oraro.amediaplayer.player.AudioPlayer;
 
 /**
@@ -16,7 +17,7 @@ import com.oraro.amediaplayer.player.AudioPlayer;
  * @date May 19, 2013, 4:20:28 PM
  * @version
  */
-public class VideoPlayer extends Fragment {
+public class VideoPlayer extends SherlockFragment {
 
 
 	private static final String VIDEO_FRAGMENT = "video_fragment";
@@ -36,10 +37,12 @@ public class VideoPlayer extends Fragment {
 	}
 	
 	
+	//COMMENTED THE METHOD AS IT IS UNUSED:
+	
 	/**
 	 * Replaces the current view with a view identified by it's resource id
 	 * @param resId the resource id of the new view
-	 */
+	 *//*
 	public void setView(Fragment fragment) {
 		if(fragment == null) {
 			throw new NullPointerException("Fragment can't be null");
@@ -56,7 +59,7 @@ public class VideoPlayer extends Fragment {
 //		int currentIdx = parentView.indexOfChild(currentView);
 //		currentView = getActivity().getLayoutInflater().inflate(resId, parentView, false);
 //		parentView.addView(currentView, currentIdx);
-	}
+	}*/
 	
 	
 	

@@ -75,8 +75,9 @@ public class HomeActivity extends BaseListActivity<SelectableItem> {
 
 	private void initFragments() {
 		videoPlayer = new VideoPlayer();
-		getFragmentManager().beginTransaction().add(R.id.viewStub, videoPlayer)
-				.commit();
+		//COMMENTED DUE TO UNNEDED:
+		/*getFragmentManager().beginTransaction().add(R.id.viewStub, videoPlayer)
+				.commit();*/
 	}
 
 
